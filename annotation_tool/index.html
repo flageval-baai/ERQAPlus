@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>视频标注工具</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <button id="uploadVideoBtn" class="annotation-btn annotation-btn-primary" style="margin-bottom: 10px;">上传视频</button>
+        <div id="videoFileName" style="font-size:16px;font-weight:600;margin-bottom:10px;color:#2196F3;"></div>
+        <div class="video-container" id="videoContainer">
+            <input type="file" id="videoFile" accept="video/*" style="display: none;">
+            <div class="video-canvas-wrapper">
+                <video id="mainVideo"></video>
+                <canvas id="annotationCanvas"></canvas>
+                <canvas id="previewCanvas" style="position:absolute;left:0;top:0;width:640px;height:480px;z-index:3;pointer-events:none;"></canvas>
+            </div>
+        </div>
+        <div class="controls-section">
+            <button id="playPauseBtn">播放</button>
+            <input type="range" id="seekBar" min="0" max="100" value="0">
+            <div class="time-line-container">
+                <span>帧 0</span>
+                <span>总帧数 0</span>
+            </div>
+        </div>
+    </div>
+    <!-- 右上角用户名输入区域 -->
+    <div class="top-right-group">
+        <div class="user-info-container">
+            <label for="usernameInput">用户名：</label>
+            <input type="text" id="usernameInput" placeholder="请输入用户名">
+            <button id="saveUsernameBtn" class="annotation-btn annotation-btn-primary">保存</button>
+        </div>
+    </div>
+
+    <!-- 标注记录区域 -->
+    <div class="annotation-records-container">
+        <h3 class="annotation-records-title">标注记录</h3>
+    </div>
+
+    <!-- 标注工具区域 -->
+    <div class="tools-section">
+        <h3 class="annotation-tools-title">标注工具</h3>
+        <!-- 分类选择 -->
+        <div class="annotation-tools-row category-container">
+            <label for="mainCategory">主分类：</label>
+            <select id="mainCategory"></select>
+            <label for="subCategory">子分类：</label>
+            <select id="subCategory"></select>
+        </div>
+        <!-- 工具选择 -->
+        <div class="annotation-tools-row" id="toolSelectRow">
+            <label>工具：</label>
+            <button type="button" class="tool-btn" id="toolPen" data-tool="pen">画笔</button>
+            <button type="button" class="tool-btn" id="toolRect" data-tool="rect">矩形</button>
+            <button type="button" class="tool-btn" id="toolArrow" data-tool="arrow">箭头</button>
+            <button type="button" class="tool-btn" id="toolText" data-tool="text">文字</button>
+        </div>
+        <!-- 画笔工具 -->
+        <div class="annotation-tools-row">
+            <label for="penColor">颜色：</label>
+            <input type="color" id="penColor" value="#ff0000">
+            <label for="penWidth">宽度：</label>
+            <input type="range" id="penWidth" min="1" max="20" value="5">
+        </div>
+        <div class="annotation-tools-row">
+            <button id="undoCanvasBtn" class="annotation-btn">撤销</button>
+            <button id="clearCanvasBtn" class="annotation-btn annotation-btn-danger">清空画布</button>
+        </div>
+        <!-- 问题输入 -->
+        <div class="annotation-tools-question">
+            <label for="questionText">问题：</label>
+            <textarea id="questionText" rows="3" placeholder="请输入问题..."></textarea>
+            <div id="optionsContainer" style="margin: 0 0 10px 0;">
+                <div id="optionsList"></div>
+                <button type="button" id="addOptionBtn" class="annotation-btn annotation-btn-primary" style="margin-top:6px;">添加选项</button>
+            </div>
+            <div id="answerWrapper">
+                <label for="answerText">答案：</label>
+                <textarea id="answerText" rows="1" placeholder="请输入答案..."></textarea>
+            </div>
+        </div>
+        <!-- 保存按钮 -->
+        <div class="annotation-tools-btn-row">
+            <button id="saveAnnotationBtn" class="annotation-btn annotation-btn-primary">完成当前标注</button>
+            <button id="saveCurrentAnnotationBtn" class="annotation-btn annotation-btn-primary" style="background:#4CAF50;">保存当前帧</button>
+
+        </div>
+    </div>
+
+    <!-- 隐藏/显示按钮 -->
+    <button id="toggleToolsBtn" class="toggle-tools-btn" title="隐藏/显示工具"></button>
+
+    <!-- 快捷键提示 -->
+    <div class="shortcut-container">
+        <div class="shortcut-title">快捷键：</div>
+        <div>空格：播放/暂停视频</div>
+        <div>c：清空画布</div>
+        <div>s：保存标注</div>
+        <div>z：撤销标注</div>
+    </div>
+
+    <!-- 开始提示 -->
+    <div class="start-tip-container">
+        <div class="start-tip-title">欢迎使用视频标注工具</div>
+        <div class="start-tip-steps">
+            <div>使用步骤：</div>
+            <div>1. 上传视频文件</div>
+            <div>2. 在右上角设置用户名</div>
+            <div>3. 使用空格键控制视频播放/暂停</div>
+            <div>4. 暂停视频后，进行标注输入问题</div>
+            <div>5. 每次完成当前帧标注后，点击"保存当前帧"或按 s 键，支持一个问题多张标注图片</div>
+            <div>6. 标注全部完成后，点击"完成当前标注"按钮，打包下载所有标注和问题</div>
+        </div>
+        <div class="start-tip-hint">提示：按任意键关闭此提示</div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
