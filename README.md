@@ -1,6 +1,12 @@
 # ERQA+: An Enhanced Benchmark on Embodied Reasoning
 🏠[Project Page](https://flageval-baai.github.io/ERQA-Plus-page) | 📖[Paper(preview)](https://flageval-baai.github.io/ERQA-Plus-page/static/pdfs/ERQA_plus.pdf) | 💻[Code](https://github.com/flageval-baai/ERQAPlus) | 🤗[Data](https://huggingface.co/datasets/FlagEval/ERQAPlus)
 
+## Install development environment
+
+```bash
+pip install -r requirements.txt
+```
+
 ## Evaluator Script Usage
 
 Convert your data into the formats listed under [Predictions formats](#predictions-formats), then run:

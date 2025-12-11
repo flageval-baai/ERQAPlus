@@ -1,7 +1,6 @@
 from typing import Dict, List, Tuple, Union
 from collections import defaultdict
 import re
-from openai import OpenAI
 import os
 import json
 import argparse
